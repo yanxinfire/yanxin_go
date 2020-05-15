@@ -1,4 +1,4 @@
-/.idea/
-/test/
-/conftest/
+.idea
+test
+conftest
 
