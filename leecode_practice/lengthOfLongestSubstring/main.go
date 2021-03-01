@@ -1,13 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	fmt.Println(lengthOfLongestSubstring("abcabcde"))
+	s := "abcabcbb"
+	fmt.Println(lengthOfLongestSubstring2(s))
 }
 
 func lengthOfLongestSubstring(s string) int {
-	cnt:=0
+	cnt := 0
 	hashmap := make(map[byte]int)
 	ans, rk := 0, -1
 	n := len(s)
@@ -25,8 +29,28 @@ func lengthOfLongestSubstring(s string) int {
 			break
 		}
 	}
-	fmt.Println(cnt)
 	return ans
+}
+
+func lengthOfLongestSubstring2(s string) int {
+	sublen, idx := 0, 0
+	n := len(s)
+	for i := 0; i < n; {
+		if i==n-1{
+			return max(sublen,1)
+		}
+		for end := i + 1; end < n; end++ {
+			if idx = strings.Index(s[i:end], s[end:end+1]); idx >= 0 {
+				sublen = max(end-i, sublen)
+				i += idx + 1
+				break
+			}
+			if end == n-1 {
+				return max(end-i+1, sublen)
+			}
+		}
+	}
+	return sublen
 }
 
 func max(x, y int) int {
